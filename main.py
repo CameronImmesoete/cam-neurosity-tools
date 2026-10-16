@@ -1,8 +1,9 @@
-from neurosity import NeurositySDK
-from dotenv import load_dotenv
 import os
-import numpy as np
 import time
+
+import numpy as np
+from dotenv import load_dotenv
+from neurosity import NeurositySDK
 
 load_dotenv()
 
@@ -57,15 +58,13 @@ def record_and_aggregate_data(num_captures, num_seconds, raw_file_name, agg_file
 
     # Write raw data to a file
     with open(raw_file_name, "w") as f:
-        for epoch in raw_data:
-            f.write(str(epoch) + "\n")
+        f.writelines(str(epoch) + "\n" for epoch in raw_data)
 
     # Write aggregated data to a file
     with open(agg_file_name, "w") as f:
         for key, values in aggregated_data.items():
             f.write(key + "\n")
-            for value in values:
-                f.write(str(value) + "\n")
+            f.writelines(str(value) + "\n" for value in values)
 
 
 # Example usage
